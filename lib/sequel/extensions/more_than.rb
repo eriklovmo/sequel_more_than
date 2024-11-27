@@ -52,13 +52,7 @@ module Sequel
                 "`number_of_rows` must be an Integer, got #{number_of_rows.inspect}"
         end
 
-        if number_of_rows.negative? || number_of_rows.zero?
-          false
-        elsif number_of_rows == 1
-          empty?
-        else
-          !more_than?(number_of_rows - 1)
-        end
+         !more_than?(number_of_rows - 1)
       end
     end
   end
