@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.name = "sequel_more_than"
   spec.version = Sequel::MoreThan::VERSION
   spec.authors = ["eriklovmo"]
-  spec.summary = "Adds #more_than? and #fewer_than? to Sequel::Dataset"
+  spec.summary = "Adds #more_than?, #fewer_than?, #at_least? and #at_most? to Sequel::Dataset"
   spec.homepage = "https://github.com/eriklovmo/sequel_more_than"
   spec.platform = Gem::Platform::RUBY
   spec.required_ruby_version = ">= 3.0.0"

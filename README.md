@@ -1,6 +1,11 @@
 # Sequel::MoreThan
 
-This gem adds two convenience methods to Sequel::Dataset: `#more_than?` and `#fewer_than?`.
+This gem adds four convenience methods to Sequel::Dataset:
+
+`#more_than?`
+`#fewer_than?`
+`#at_most?`
+`#at_least?`
 
 These methods allow you to efficiently determine whether a dataset contains more or fewer rows than a specified number.
 
@@ -43,6 +48,13 @@ DB[:table].fewer_than?(1)
 
 DB[:table].fewer_than?(5)
 # SELECT (EXISTS (SELECT * FROM table LIMIT 1 OFFSET 4)) AS v LIMIT 1
+
+DB[:table].at_least?(3)
+# SELECT (EXISTS (SELECT * FROM table LIMIT 1 OFFSET 2)) AS v LIMIT 1"
+
+DB[:table].at_most?(2)
+# SELECT (EXISTS (SELECT * FROM table LIMIT 1 OFFSET 2)) AS v LIMIT 1
+
 ```
 
 ## Caveats
