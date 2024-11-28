@@ -29,4 +29,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency("sequel", "~> 5")
 
   spec.add_development_dependency("pg", "~> 1.5")
+  spec.add_development_dependency("standard")
 end

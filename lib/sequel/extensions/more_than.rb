@@ -21,7 +21,7 @@ module Sequel
       def more_than?(number_of_rows)
         unless number_of_rows.is_a?(Integer)
           raise ArgumentError,
-                "`number_of_rows` must be an Integer, got #{number_of_rows.inspect}"
+            "`number_of_rows` must be an Integer, got #{number_of_rows.inspect}"
         end
 
         if number_of_rows.negative?
@@ -37,16 +37,16 @@ module Sequel
       def fewer_than?(number_of_rows)
         unless number_of_rows.is_a?(Integer)
           raise ArgumentError,
-                "`number_of_rows` must be an Integer, got #{number_of_rows.inspect}"
+            "`number_of_rows` must be an Integer, got #{number_of_rows.inspect}"
         end
 
-         !more_than?(number_of_rows - 1)
+        !more_than?(number_of_rows - 1)
       end
 
       def at_least?(number_of_rows)
         unless number_of_rows.is_a?(Integer)
           raise ArgumentError,
-                "`number_of_rows` must be an Integer, got #{number_of_rows.inspect}"
+            "`number_of_rows` must be an Integer, got #{number_of_rows.inspect}"
         end
 
         more_than?(number_of_rows - 1)

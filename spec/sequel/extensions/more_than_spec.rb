@@ -377,7 +377,7 @@ RSpec.describe Sequel::MoreThan do
         db[:table].at_least?(-1)
 
         expect(db.sqls).to be_empty
-     end
+      end
     end
 
     context "with `number_of_rows` = 1" do
