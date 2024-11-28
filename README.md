@@ -1,6 +1,6 @@
 # Sequel::MoreThan
 
-This gem adds four convenience methods to Sequel::Dataset:
+This gem adds four convenience methods to `Sequel::Dataset`:
 
 * `#more_than?`
 * `#fewer_than?`
@@ -13,6 +13,8 @@ Why use this gem?
 
 * It generates efficient SQL queries to minimize database overhead.
 * It provides a readable API for expressing dataset count comparisons.
+
+[![Gem Version](https://badge.fury.io/rb/sequel_more_than.svg)](https://badge.fury.io/rb/sequel_more_than)
 
 ## Installation
 
