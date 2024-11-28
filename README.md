@@ -52,7 +52,7 @@ DB[:table].fewer_than?(5)
 # SELECT (EXISTS (SELECT * FROM table LIMIT 1 OFFSET 4)) AS v LIMIT 1
 
 DB[:table].at_least?(3)
-# SELECT (EXISTS (SELECT * FROM table LIMIT 1 OFFSET 2)) AS v LIMIT 1"
+# SELECT (EXISTS (SELECT * FROM table LIMIT 1 OFFSET 2)) AS v LIMIT 1
 
 DB[:table].at_most?(2)
 # SELECT (EXISTS (SELECT * FROM table LIMIT 1 OFFSET 2)) AS v LIMIT 1
