@@ -2,10 +2,10 @@
 
 This gem adds four convenience methods to Sequel::Dataset:
 
-`#more_than?`
-`#fewer_than?`
-`#at_most?`
-`#at_least?`
+* `#more_than?`
+* `#fewer_than?`
+* `#at_most?`
+* `#at_least?`
 
 These methods allow you to efficiently determine whether a dataset contains more or fewer rows than a specified number.
 
