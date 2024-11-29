@@ -14,8 +14,6 @@ Why use this gem?
 * It generates efficient SQL queries to minimize database overhead.
 * It provides a readable API for expressing dataset count comparisons.
 
-[![Gem Version](https://badge.fury.io/rb/sequel_more_than.svg)](https://badge.fury.io/rb/sequel_more_than)
-
 ## Installation
 
 Install the gem and add to the application's Gemfile by executing:
