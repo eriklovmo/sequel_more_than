@@ -33,7 +33,8 @@ module Sequel
         elsif number_of_rows.zero?
           !empty?
         else
-          subquery = unordered.limit(1).offset(number_of_rows)
+          ds = @opts[:sql] ? from_self : self
+          subquery = ds.unordered.limit(1).offset(number_of_rows)
           @db.get(subquery.exists)
         end
       end
