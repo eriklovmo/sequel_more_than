@@ -18,6 +18,10 @@ require_relative "../more_than/version"
 module Sequel
   module Extensions
     module MoreThan
+      # Returns true if more than *number_of_rows* records exist in the dataset, false otherwise
+      #
+      # Equivalent to a "greater than" (>) comparison
+      #
       def more_than?(number_of_rows)
         unless number_of_rows.is_a?(Integer)
           raise ArgumentError,
@@ -34,6 +38,10 @@ module Sequel
         end
       end
 
+      # Returns true if fewer than *number_of_rows* records exist in the dataset, false otherwise
+      #
+      # Equivalent to a "less than" (<) comparison
+      #
       def fewer_than?(number_of_rows)
         unless number_of_rows.is_a?(Integer)
           raise ArgumentError,
@@ -43,6 +51,10 @@ module Sequel
         !more_than?(number_of_rows - 1)
       end
 
+      # Returns true if at least *number_of_rows* records exist in the dataset, false otherwise
+      #
+      # Equivalent to a "greater than or equal to" (>=) comparison
+      #
       def at_least?(number_of_rows)
         unless number_of_rows.is_a?(Integer)
           raise ArgumentError,
@@ -52,6 +64,10 @@ module Sequel
         more_than?(number_of_rows - 1)
       end
 
+      # Returns true if at most *number_of_rows* records exist in the dataset, false otherwise
+      #
+      # Equivalent to a "less than or equal to" (<=) comparison
+      #
       def at_most?(number_of_rows)
         !more_than?(number_of_rows)
       end
