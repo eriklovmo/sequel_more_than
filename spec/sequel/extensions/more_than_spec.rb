@@ -150,6 +150,19 @@ RSpec.describe Sequel::MoreThan do
       end
     end
 
+    context "with an ordered dataset" do
+      it "ignores the ordering" do
+        db = Sequel.mock.extension(:more_than)
+        dataset = db[:table].order(:column)
+
+        dataset.more_than?(1)
+
+        expect(db.sqls).to contain_exactly(
+          "SELECT (EXISTS (SELECT * FROM table LIMIT 1 OFFSET 1)) AS v LIMIT 1"
+        )
+      end
+    end
+
     context "with an invalid argument" do
       it "raises ArgumentError" do
         ["foo", nil, 3.14, false, true].each do |invalid_argument|
@@ -299,6 +312,19 @@ RSpec.describe Sequel::MoreThan do
       end
     end
 
+    context "with an ordered dataset" do
+      it "ignores the ordering" do
+        db = Sequel.mock.extension(:more_than)
+        dataset = db[:table].order(:column)
+
+        dataset.fewer_than?(2)
+
+        expect(db.sqls).to contain_exactly(
+          "SELECT (EXISTS (SELECT * FROM table LIMIT 1 OFFSET 1)) AS v LIMIT 1"
+        )
+      end
+    end
+
     context "with an invalid argument" do
       it "raises ArgumentError" do
         ["foo", nil, 3.14, false, true].each do |invalid_argument|
@@ -441,6 +467,19 @@ RSpec.describe Sequel::MoreThan do
         db = Sequel.mock.extension(:more_than)
 
         db[:table].at_least?(2)
+
+        expect(db.sqls).to contain_exactly(
+          "SELECT (EXISTS (SELECT * FROM table LIMIT 1 OFFSET 1)) AS v LIMIT 1"
+        )
+      end
+    end
+
+    context "with an ordered dataset" do
+      it "ignores the ordering" do
+        db = Sequel.mock.extension(:more_than)
+        dataset = db[:table].order(:column)
+
+        dataset.at_least?(2)
 
         expect(db.sqls).to contain_exactly(
           "SELECT (EXISTS (SELECT * FROM table LIMIT 1 OFFSET 1)) AS v LIMIT 1"
@@ -605,6 +644,19 @@ RSpec.describe Sequel::MoreThan do
 
         expect(db.sqls).to contain_exactly(
           "SELECT (EXISTS (SELECT * FROM table LIMIT 1 OFFSET 2)) AS v LIMIT 1"
+        )
+      end
+    end
+
+    context "with an ordered dataset" do
+      it "ignores the ordering" do
+        db = Sequel.mock.extension(:more_than)
+        dataset = db[:table].order(:column)
+
+        dataset.at_most?(1)
+
+        expect(db.sqls).to contain_exactly(
+          "SELECT (EXISTS (SELECT * FROM table LIMIT 1 OFFSET 1)) AS v LIMIT 1"
         )
       end
     end
