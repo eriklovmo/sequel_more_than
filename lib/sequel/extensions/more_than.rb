@@ -22,6 +22,9 @@ module Sequel
       #
       # Equivalent to a "greater than" (>) comparison
       #
+      # @param number_of_rows [Integer] The number to compare against
+      # @return [Boolean] Whether the dataset contains more rows than *number_of_rows*
+      # @raise [ArgumentError] If `number_of_rows` is not an integer
       def more_than?(number_of_rows)
         unless number_of_rows.is_a?(Integer)
           raise ArgumentError,
@@ -42,6 +45,9 @@ module Sequel
       #
       # Equivalent to a "less than" (<) comparison
       #
+      # @param number_of_rows [Integer] The number to compare against
+      # @return [Boolean] Whether the dataset contains fewer rows than *number_of_rows*
+      # @raise [ArgumentError] If `number_of_rows` is not an integer
       def fewer_than?(number_of_rows)
         unless number_of_rows.is_a?(Integer)
           raise ArgumentError,
@@ -55,6 +61,9 @@ module Sequel
       #
       # Equivalent to a "greater than or equal to" (>=) comparison
       #
+      # @param number_of_rows [Integer] The number to compare against
+      # @return [Boolean] Whether the dataset contains at least *number_of_rows*
+      # @raise [ArgumentError] If `number_of_rows` is not an integer
       def at_least?(number_of_rows)
         unless number_of_rows.is_a?(Integer)
           raise ArgumentError,
@@ -68,6 +77,9 @@ module Sequel
       #
       # Equivalent to a "less than or equal to" (<=) comparison
       #
+      # @param number_of_rows [Integer] The number to compare against
+      # @return [Boolean] Whether the dataset contains at most *number_of_rows*
+      # @raise [ArgumentError] If `number_of_rows` is not an integer
       def at_most?(number_of_rows)
         !more_than?(number_of_rows)
       end
