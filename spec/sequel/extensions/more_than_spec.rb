@@ -100,7 +100,7 @@ RSpec.describe Sequel::MoreThan do
         db[:table].more_than?(1)
 
         expect(db.sqls).to contain_exactly(
-          "SELECT (EXISTS (SELECT * FROM table LIMIT 1 OFFSET 1)) AS v LIMIT 1"
+          "SELECT 1 AS one FROM table LIMIT 1 OFFSET 1"
         )
       end
     end
@@ -145,7 +145,7 @@ RSpec.describe Sequel::MoreThan do
         db[:table].more_than?(2)
 
         expect(db.sqls).to contain_exactly(
-          "SELECT (EXISTS (SELECT * FROM table LIMIT 1 OFFSET 2)) AS v LIMIT 1"
+          "SELECT 1 AS one FROM table LIMIT 1 OFFSET 2"
         )
       end
     end
@@ -158,7 +158,7 @@ RSpec.describe Sequel::MoreThan do
         dataset.more_than?(1)
 
         expect(db.sqls).to contain_exactly(
-          "SELECT (EXISTS (SELECT * FROM table LIMIT 1 OFFSET 1)) AS v LIMIT 1"
+          "SELECT 1 AS one FROM table LIMIT 1 OFFSET 1"
         )
       end
     end
@@ -307,7 +307,7 @@ RSpec.describe Sequel::MoreThan do
         db[:table].fewer_than?(2)
 
         expect(db.sqls).to contain_exactly(
-          "SELECT (EXISTS (SELECT * FROM table LIMIT 1 OFFSET 1)) AS v LIMIT 1"
+          "SELECT 1 AS one FROM table LIMIT 1 OFFSET 1"
         )
       end
     end
@@ -320,7 +320,7 @@ RSpec.describe Sequel::MoreThan do
         dataset.fewer_than?(2)
 
         expect(db.sqls).to contain_exactly(
-          "SELECT (EXISTS (SELECT * FROM table LIMIT 1 OFFSET 1)) AS v LIMIT 1"
+          "SELECT 1 AS one FROM table LIMIT 1 OFFSET 1"
         )
       end
     end
@@ -469,7 +469,7 @@ RSpec.describe Sequel::MoreThan do
         db[:table].at_least?(2)
 
         expect(db.sqls).to contain_exactly(
-          "SELECT (EXISTS (SELECT * FROM table LIMIT 1 OFFSET 1)) AS v LIMIT 1"
+          "SELECT 1 AS one FROM table LIMIT 1 OFFSET 1"
         )
       end
     end
@@ -482,7 +482,7 @@ RSpec.describe Sequel::MoreThan do
         dataset.at_least?(2)
 
         expect(db.sqls).to contain_exactly(
-          "SELECT (EXISTS (SELECT * FROM table LIMIT 1 OFFSET 1)) AS v LIMIT 1"
+          "SELECT 1 AS one FROM table LIMIT 1 OFFSET 1"
         )
       end
     end
@@ -598,7 +598,7 @@ RSpec.describe Sequel::MoreThan do
         db[:table].at_most?(1)
 
         expect(db.sqls).to contain_exactly(
-          "SELECT (EXISTS (SELECT * FROM table LIMIT 1 OFFSET 1)) AS v LIMIT 1"
+          "SELECT 1 AS one FROM table LIMIT 1 OFFSET 1"
         )
       end
     end
@@ -643,7 +643,7 @@ RSpec.describe Sequel::MoreThan do
         db[:table].at_most?(2)
 
         expect(db.sqls).to contain_exactly(
-          "SELECT (EXISTS (SELECT * FROM table LIMIT 1 OFFSET 2)) AS v LIMIT 1"
+          "SELECT 1 AS one FROM table LIMIT 1 OFFSET 2"
         )
       end
     end
@@ -656,7 +656,7 @@ RSpec.describe Sequel::MoreThan do
         dataset.at_most?(1)
 
         expect(db.sqls).to contain_exactly(
-          "SELECT (EXISTS (SELECT * FROM table LIMIT 1 OFFSET 1)) AS v LIMIT 1"
+          "SELECT 1 AS one FROM table LIMIT 1 OFFSET 1"
         )
       end
     end

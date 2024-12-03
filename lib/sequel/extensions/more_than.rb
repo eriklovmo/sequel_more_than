@@ -36,8 +36,13 @@ module Sequel
         elsif number_of_rows.zero?
           !empty?
         else
-          subquery = unordered.limit(1).offset(number_of_rows)
-          @db.get(subquery.exists)
+          ds = @opts[:sql] ? from_self : self
+          !ds
+            .single_value_ds
+            .unordered
+            .offset(number_of_rows)
+            .get(Sequel::SQL::AliasedExpression.new(1, :one))
+            .nil?
         end
       end
 
