@@ -1,3 +1,7 @@
+=== 1.0.1 (2024-12-01)
+
+* Generate faster SQL, using SELECT 1 instead of SELECT (EXISTS (...))
+
 === 1.0.0 (2024-12-01)
 
 * Initial public release
