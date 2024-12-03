@@ -163,6 +163,27 @@ RSpec.describe Sequel::MoreThan do
       end
     end
 
+    context "with custom SQL" do
+      it "generates correct SQL" do
+        db = Sequel.mock.extension(:more_than)
+        dataset = db[:table].with_sql("SELECT 1 UNION SELECT 2")
+
+        dataset.more_than?(1)
+
+        expect(db.sqls).to contain_exactly(
+          "SELECT 1 AS one FROM (SELECT 1 UNION SELECT 2) AS t1 LIMIT 1 OFFSET 1"
+        )
+      end
+
+      it "produces correct result" do
+        dataset = DB[:table].with_sql("SELECT 1 UNION SELECT 2")
+
+        more_than_one = dataset.more_than?(1)
+
+        expect(more_than_one).to be(true)
+      end
+    end
+
     context "with an invalid argument" do
       it "raises ArgumentError" do
         ["foo", nil, 3.14, false, true].each do |invalid_argument|
@@ -325,6 +346,27 @@ RSpec.describe Sequel::MoreThan do
       end
     end
 
+    context "with custom SQL" do
+      it "generates correct SQL" do
+        db = Sequel.mock.extension(:more_than)
+        dataset = db[:table].with_sql("SELECT 1 UNION SELECT 2")
+
+        dataset.fewer_than?(2)
+
+        expect(db.sqls).to contain_exactly(
+          "SELECT 1 AS one FROM (SELECT 1 UNION SELECT 2) AS t1 LIMIT 1 OFFSET 1"
+        )
+      end
+
+      it "produces correct result" do
+        dataset = DB[:table].with_sql("SELECT 1 UNION SELECT 2")
+
+        more_than_one = dataset.fewer_than?(2)
+
+        expect(more_than_one).to be(false)
+      end
+    end
+
     context "with an invalid argument" do
       it "raises ArgumentError" do
         ["foo", nil, 3.14, false, true].each do |invalid_argument|
@@ -484,6 +526,27 @@ RSpec.describe Sequel::MoreThan do
         expect(db.sqls).to contain_exactly(
           "SELECT 1 AS one FROM table LIMIT 1 OFFSET 1"
         )
+      end
+    end
+
+    context "with custom SQL" do
+      it "generates correct SQL" do
+        db = Sequel.mock.extension(:more_than)
+        dataset = db[:table].with_sql("SELECT 1 UNION SELECT 2")
+
+        dataset.at_least?(2)
+
+        expect(db.sqls).to contain_exactly(
+          "SELECT 1 AS one FROM (SELECT 1 UNION SELECT 2) AS t1 LIMIT 1 OFFSET 1"
+        )
+      end
+
+      it "produces correct result" do
+        dataset = DB[:table].with_sql("SELECT 1 UNION SELECT 2")
+
+        more_than_one = dataset.at_least?(2)
+
+        expect(more_than_one).to be(true)
       end
     end
 
@@ -658,6 +721,27 @@ RSpec.describe Sequel::MoreThan do
         expect(db.sqls).to contain_exactly(
           "SELECT 1 AS one FROM table LIMIT 1 OFFSET 1"
         )
+      end
+    end
+
+    context "with custom SQL" do
+      it "generates correct SQL" do
+        db = Sequel.mock.extension(:more_than)
+        dataset = db[:table].with_sql("SELECT 1 UNION SELECT 2")
+
+        dataset.at_most?(1)
+
+        expect(db.sqls).to contain_exactly(
+          "SELECT 1 AS one FROM (SELECT 1 UNION SELECT 2) AS t1 LIMIT 1 OFFSET 1"
+        )
+      end
+
+      it "produces correct result" do
+        dataset = DB[:table].with_sql("SELECT 1 UNION SELECT 2")
+
+        more_than_one = dataset.at_most?(1)
+
+        expect(more_than_one).to be(false)
       end
     end
 
