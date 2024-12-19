@@ -6,26 +6,19 @@ RSpec.describe Sequel::MoreThan do
   describe "#more_than?" do
     context "with `number_of_rows` below 0" do
       it "returns true for an empty dataset" do
-        more_than_minus_one = DB[:table].more_than?(-1)
-
-        expect(more_than_minus_one).to be(true)
+        expect(DB[:table].more_than?(-1)).to be(true)
       end
 
       it "returns true for a dataset with one row" do
         DB[:table].insert(column: 1)
 
-        more_than_minus_one = DB[:table].more_than?(-1)
-
-        expect(more_than_minus_one).to be(true)
+        expect(DB[:table].more_than?(-1)).to be(true)
       end
 
       it "returns true for a dataset with multiple rows" do
-        DB[:table].insert(column: 1)
-        DB[:table].insert(column: 2)
+        DB[:table].multi_insert([{column: 1}, {column: 2}])
 
-        more_than_minus_one = DB[:table].more_than?(-1)
-
-        expect(more_than_minus_one).to be(true)
+        expect(DB[:table].more_than?(-1)).to be(true)
       end
 
       it "does not hit the database" do
@@ -39,26 +32,19 @@ RSpec.describe Sequel::MoreThan do
 
     context "with `number_of_rows` = 0" do
       it "returns false for an empty dataset" do
-        more_than_zero = DB[:table].more_than?(0)
-
-        expect(more_than_zero).to be(false)
+        expect(DB[:table].more_than?(0)).to be(false)
       end
 
       it "returns true for a dataset with one row" do
         DB[:table].insert(column: 1)
 
-        more_than_zero = DB[:table].more_than?(0)
-
-        expect(more_than_zero).to be(true)
+        expect(DB[:table].more_than?(0)).to be(true)
       end
 
       it "returns true for a dataset with multiple rows" do
-        DB[:table].insert(column: 1)
-        DB[:table].insert(column: 2)
+        DB[:table].multi_insert([{column: 1}, {column: 2}])
 
-        more_than_zero = DB[:table].more_than?(0)
-
-        expect(more_than_zero).to be(true)
+        expect(DB[:table].more_than?(0)).to be(true)
       end
 
       it "generates correct SQL" do
@@ -72,26 +58,19 @@ RSpec.describe Sequel::MoreThan do
 
     context "with `number_of_rows` = 1" do
       it "returns false for an empty dataset" do
-        more_than_one = DB[:table].more_than?(1)
-
-        expect(more_than_one).to be(false)
+        expect(DB[:table].more_than?(1)).to be(false)
       end
 
       it "returns false for a dataset with one row" do
         DB[:table].insert(column: 1)
 
-        more_than_one = DB[:table].more_than?(1)
-
-        expect(more_than_one).to be(false)
+        expect(DB[:table].more_than?(1)).to be(false)
       end
 
       it "returns true for a dataset with multiple rows" do
-        DB[:table].insert(column: 1)
-        DB[:table].insert(column: 2)
+        DB[:table].multi_insert([{column: 1}, {column: 2}])
 
-        more_than_one = DB[:table].more_than?(1)
-
-        expect(more_than_one).to be(true)
+        expect(DB[:table].more_than?(1)).to be(true)
       end
 
       it "generates correct SQL" do
@@ -107,36 +86,25 @@ RSpec.describe Sequel::MoreThan do
 
     context "with `number_of_rows` = 2" do
       it "returns false for an empty dataset" do
-        more_than_two = DB[:table].more_than?(2)
-
-        expect(more_than_two).to be(false)
+        expect(DB[:table].more_than?(2)).to be(false)
       end
 
       it "returns false for a dataset with one row" do
         DB[:table].insert(column: 1)
 
-        more_than_two = DB[:table].more_than?(2)
-
-        expect(more_than_two).to be(false)
+        expect(DB[:table].more_than?(2)).to be(false)
       end
 
       it "returns false for a dataset with two rows" do
-        DB[:table].insert(column: 1)
-        DB[:table].insert(column: 2)
+        DB[:table].multi_insert([{column: 1}, {column: 2}])
 
-        more_than_two = DB[:table].more_than?(2)
-
-        expect(more_than_two).to be(false)
+        expect(DB[:table].more_than?(2)).to be(false)
       end
 
       it "returns true for a dataset with at least three rows" do
-        DB[:table].insert(column: 1)
-        DB[:table].insert(column: 2)
-        DB[:table].insert(column: 3)
+        DB[:table].multi_insert([{column: 1}, {column: 2}, {column: 3}])
 
-        more_than_two = DB[:table].more_than?(2)
-
-        expect(more_than_two).to be(true)
+        expect(DB[:table].more_than?(2)).to be(true)
       end
 
       it "generates correct SQL" do
@@ -178,9 +146,7 @@ RSpec.describe Sequel::MoreThan do
       it "produces correct result" do
         dataset = DB[:table].with_sql("SELECT 1 UNION SELECT 2")
 
-        more_than_one = dataset.more_than?(1)
-
-        expect(more_than_one).to be(true)
+        expect(dataset.more_than?(1)).to be(true)
       end
     end
 
@@ -201,26 +167,19 @@ RSpec.describe Sequel::MoreThan do
   describe "#fewer_than?" do
     context "with `number_of_rows` below 0" do
       it "returns false for an empty dataset" do
-        fewer_than_minus_one = DB[:table].fewer_than?(-1)
-
-        expect(fewer_than_minus_one).to be(false)
+        expect(DB[:table].fewer_than?(-1)).to be(false)
       end
 
       it "returns false for a dataset with one row" do
         DB[:table].insert(column: 1)
 
-        fewer_than_minus_one = DB[:table].fewer_than?(-1)
-
-        expect(fewer_than_minus_one).to be(false)
+        expect(DB[:table].fewer_than?(-1)).to be(false)
       end
 
       it "returns false for a dataset with multiple rows" do
-        DB[:table].insert(column: 1)
-        DB[:table].insert(column: 2)
+        DB[:table].multi_insert([{column: 1}, {column: 2}])
 
-        fewer_than_minus_one = DB[:table].fewer_than?(-1)
-
-        expect(fewer_than_minus_one).to be(false)
+        expect(DB[:table].fewer_than?(-1)).to be(false)
       end
 
       it "does not hit the database" do
@@ -234,26 +193,19 @@ RSpec.describe Sequel::MoreThan do
 
     context "with `number_of_rows` = 0" do
       it "returns false for an empty dataset" do
-        fewer_than_zero = DB[:table].fewer_than?(0)
-
-        expect(fewer_than_zero).to be(false)
+        expect(DB[:table].fewer_than?(0)).to be(false)
       end
 
       it "returns false for a dataset with one row" do
         DB[:table].insert(column: 1)
 
-        fewer_than_zero = DB[:table].fewer_than?(0)
-
-        expect(fewer_than_zero).to be(false)
+        expect(DB[:table].fewer_than?(0)).to be(false)
       end
 
       it "returns false for a dataset with multiple rows" do
-        DB[:table].insert(column: 1)
-        DB[:table].insert(column: 2)
+        DB[:table].multi_insert([{column: 1}, {column: 2}])
 
-        fewer_than_zero = DB[:table].fewer_than?(0)
-
-        expect(fewer_than_zero).to be(false)
+        expect(DB[:table].fewer_than?(0)).to be(false)
       end
 
       it "does not hit the database" do
@@ -267,26 +219,19 @@ RSpec.describe Sequel::MoreThan do
 
     context "with `number_of_rows` = 1" do
       it "returns true for an empty dataset" do
-        fewer_than_one = DB[:table].fewer_than?(1)
-
-        expect(fewer_than_one).to be(true)
+        expect(DB[:table].fewer_than?(1)).to be(true)
       end
 
       it "returns false for a dataset with one row" do
         DB[:table].insert(column: 1)
 
-        fewer_than_one = DB[:table].fewer_than?(1)
-
-        expect(fewer_than_one).to be(false)
+        expect(DB[:table].fewer_than?(1)).to be(false)
       end
 
       it "returns false for a dataset with multiple rows" do
-        DB[:table].insert(column: 1)
-        DB[:table].insert(column: 2)
+        DB[:table].multi_insert([{column: 1}, {column: 2}])
 
-        fewer_than_one = DB[:table].fewer_than?(1)
-
-        expect(fewer_than_one).to be(false)
+        expect(DB[:table].fewer_than?(1)).to be(false)
       end
 
       it "generates correct SQL" do
@@ -300,26 +245,19 @@ RSpec.describe Sequel::MoreThan do
 
     context "with `number_of_rows` = 2" do
       it "returns true for an empty dataset" do
-        fewer_than_two = DB[:table].fewer_than?(2)
-
-        expect(fewer_than_two).to be(true)
+        expect(DB[:table].fewer_than?(2)).to be(true)
       end
 
       it "returns true for a dataset with one row" do
         DB[:table].insert(column: 1)
 
-        fewer_than_two = DB[:table].fewer_than?(2)
-
-        expect(fewer_than_two).to be(true)
+        expect(DB[:table].fewer_than?(2)).to be(true)
       end
 
       it "returns false for a dataset with at least two rows" do
-        DB[:table].insert(column: 1)
-        DB[:table].insert(column: 2)
+        DB[:table].multi_insert([{column: 1}, {column: 2}])
 
-        fewer_than_two = DB[:table].fewer_than?(2)
-
-        expect(fewer_than_two).to be(false)
+        expect(DB[:table].fewer_than?(2)).to be(false)
       end
 
       it "generates correct SQL" do
@@ -361,9 +299,7 @@ RSpec.describe Sequel::MoreThan do
       it "produces correct result" do
         dataset = DB[:table].with_sql("SELECT 1 UNION SELECT 2")
 
-        more_than_one = dataset.fewer_than?(2)
-
-        expect(more_than_one).to be(false)
+        expect(dataset.fewer_than?(2)).to be(false)
       end
     end
 
@@ -384,26 +320,19 @@ RSpec.describe Sequel::MoreThan do
   describe "#at_least?" do
     context "with `number_of_rows` below 0" do
       it "returns true for an empty dataset" do
-        at_least_minus_one = DB[:table].at_least?(-1)
-
-        expect(at_least_minus_one).to be(true)
+        expect(DB[:table].at_least?(-1)).to be(true)
       end
 
       it "returns true for a dataset with one row" do
         DB[:table].insert(column: 1)
 
-        at_least_minus_one = DB[:table].at_least?(-1)
-
-        expect(at_least_minus_one).to be(true)
+        expect(DB[:table].at_least?(-1)).to be(true)
       end
 
       it "returns true for a dataset with multiple rows" do
-        DB[:table].insert(column: 1)
-        DB[:table].insert(column: 2)
+        DB[:table].multi_insert([{column: 1}, {column: 2}])
 
-        at_least_minus_one = DB[:table].at_least?(-1)
-
-        expect(at_least_minus_one).to be(true)
+        expect(DB[:table].at_least?(-1)).to be(true)
       end
 
       it "does not hit the database" do
@@ -417,32 +346,25 @@ RSpec.describe Sequel::MoreThan do
 
     context "with `number_of_rows` = 0" do
       it "returns true for an empty dataset" do
-        at_least_zero = DB[:table].at_least?(0)
-
-        expect(at_least_zero).to be(true)
+        expect(DB[:table].at_least?(0)).to be(true)
       end
 
       it "returns true for a dataset with one row" do
         DB[:table].insert(column: 1)
 
-        at_least_zero = DB[:table].at_least?(0)
-
-        expect(at_least_zero).to be(true)
+        expect(DB[:table].at_least?(0)).to be(true)
       end
 
       it "returns true for a dataset with multiple rows" do
-        DB[:table].insert(column: 1)
-        DB[:table].insert(column: 2)
+        DB[:table].multi_insert([{column: 1}, {column: 2}])
 
-        at_least_zero = DB[:table].at_least?(0)
-
-        expect(at_least_zero).to be(true)
+        expect(DB[:table].at_least?(0)).to be(true)
       end
 
       it "does not hit the database" do
         db = Sequel.mock.extension(:more_than)
 
-        db[:table].at_least?(-1)
+        db[:table].at_least?(0)
 
         expect(db.sqls).to be_empty
       end
@@ -450,26 +372,19 @@ RSpec.describe Sequel::MoreThan do
 
     context "with `number_of_rows` = 1" do
       it "returns false for an empty dataset" do
-        at_least_one = DB[:table].at_least?(1)
-
-        expect(at_least_one).to be(false)
+        expect(DB[:table].at_least?(1)).to be(false)
       end
 
       it "returns true for a dataset with one row" do
         DB[:table].insert(column: 1)
 
-        at_least_one = DB[:table].at_least?(1)
-
-        expect(at_least_one).to be(true)
+        expect(DB[:table].at_least?(1)).to be(true)
       end
 
       it "returns true for a dataset with multiple rows" do
-        DB[:table].insert(column: 1)
-        DB[:table].insert(column: 2)
+        DB[:table].multi_insert([{column: 1}, {column: 2}])
 
-        at_least_one = DB[:table].at_least?(1)
-
-        expect(at_least_one).to be(true)
+        expect(DB[:table].at_least?(1)).to be(true)
       end
 
       it "generates correct SQL" do
@@ -483,26 +398,19 @@ RSpec.describe Sequel::MoreThan do
 
     context "with `number_of_rows` = 2" do
       it "returns false for an empty dataset" do
-        at_least_two = DB[:table].at_least?(2)
-
-        expect(at_least_two).to be(false)
+        expect(DB[:table].at_least?(2)).to be(false)
       end
 
       it "returns false for a dataset with one row" do
         DB[:table].insert(column: 1)
 
-        at_least_two = DB[:table].at_least?(2)
-
-        expect(at_least_two).to be(false)
+        expect(DB[:table].at_least?(2)).to be(false)
       end
 
       it "returns true for a dataset with at least two rows" do
-        DB[:table].insert(column: 1)
-        DB[:table].insert(column: 2)
+        DB[:table].multi_insert([{column: 1}, {column: 2}])
 
-        at_least_two = DB[:table].at_least?(2)
-
-        expect(at_least_two).to be(true)
+        expect(DB[:table].at_least?(2)).to be(true)
       end
 
       it "generates correct SQL" do
@@ -544,9 +452,7 @@ RSpec.describe Sequel::MoreThan do
       it "produces correct result" do
         dataset = DB[:table].with_sql("SELECT 1 UNION SELECT 2")
 
-        more_than_one = dataset.at_least?(2)
-
-        expect(more_than_one).to be(true)
+        expect(dataset.at_least?(2)).to be(true)
       end
     end
 
@@ -567,26 +473,19 @@ RSpec.describe Sequel::MoreThan do
   describe "#at_most?" do
     context "with `number_of_rows` below 0" do
       it "returns false for an empty dataset" do
-        at_most_minus_one = DB[:table].at_most?(-1)
-
-        expect(at_most_minus_one).to be(false)
+        expect(DB[:table].at_most?(-1)).to be(false)
       end
 
       it "returns false for a dataset with one row" do
         DB[:table].insert(column: 1)
 
-        at_most_minus_one = DB[:table].at_most?(-1)
-
-        expect(at_most_minus_one).to be(false)
+        expect(DB[:table].at_most?(-1)).to be(false)
       end
 
       it "returns false for a dataset with multiple rows" do
-        DB[:table].insert(column: 1)
-        DB[:table].insert(column: 2)
+        DB[:table].multi_insert([{column: 1}, {column: 2}])
 
-        at_most_minus_one = DB[:table].at_most?(-1)
-
-        expect(at_most_minus_one).to be(false)
+        expect(DB[:table].at_most?(-1)).to be(false)
       end
 
       it "does not hit the database" do
@@ -600,26 +499,19 @@ RSpec.describe Sequel::MoreThan do
 
     context "with `number_of_rows` = 0" do
       it "returns true for an empty dataset" do
-        at_most_zero = DB[:table].at_most?(0)
-
-        expect(at_most_zero).to be(true)
+        expect(DB[:table].at_most?(0)).to be(true)
       end
 
       it "returns false for a dataset with one row" do
         DB[:table].insert(column: 1)
 
-        at_most_zero = DB[:table].at_most?(0)
-
-        expect(at_most_zero).to be(false)
+        expect(DB[:table].at_most?(0)).to be(false)
       end
 
       it "returns false for a dataset with multiple rows" do
-        DB[:table].insert(column: 1)
-        DB[:table].insert(column: 2)
+        DB[:table].multi_insert([{column: 1}, {column: 2}])
 
-        at_most_zero = DB[:table].at_most?(0)
-
-        expect(at_most_zero).to be(false)
+        expect(DB[:table].at_most?(0)).to be(false)
       end
 
       it "generates correct SQL" do
@@ -633,26 +525,19 @@ RSpec.describe Sequel::MoreThan do
 
     context "with `number_of_rows` = 1" do
       it "returns true for an empty dataset" do
-        at_most_one = DB[:table].at_most?(1)
-
-        expect(at_most_one).to be(true)
+        expect(DB[:table].at_most?(1)).to be(true)
       end
 
       it "returns true for a dataset with one row" do
         DB[:table].insert(column: 1)
 
-        at_most_one = DB[:table].at_most?(1)
-
-        expect(at_most_one).to be(true)
+        expect(DB[:table].at_most?(1)).to be(true)
       end
 
       it "returns false for a dataset with multiple rows" do
-        DB[:table].insert(column: 1)
-        DB[:table].insert(column: 2)
+        DB[:table].multi_insert([{column: 1}, {column: 2}])
 
-        at_most_one = DB[:table].at_most?(1)
-
-        expect(at_most_one).to be(false)
+        expect(DB[:table].at_most?(1)).to be(false)
       end
 
       it "generates correct SQL" do
@@ -668,36 +553,25 @@ RSpec.describe Sequel::MoreThan do
 
     context "with `number_of_rows` = 2" do
       it "returns true for an empty dataset" do
-        at_most_two = DB[:table].at_most?(2)
-
-        expect(at_most_two).to be(true)
+        expect(DB[:table].at_most?(2)).to be(true)
       end
 
       it "returns true for a dataset with one row" do
         DB[:table].insert(column: 1)
 
-        at_most_two = DB[:table].at_most?(2)
-
-        expect(at_most_two).to be(true)
+        expect(DB[:table].at_most?(2)).to be(true)
       end
 
       it "returns true for a dataset with two rows" do
-        DB[:table].insert(column: 1)
-        DB[:table].insert(column: 2)
+        DB[:table].multi_insert([{column: 1}, {column: 2}])
 
-        at_most_two = DB[:table].at_most?(2)
-
-        expect(at_most_two).to be(true)
+        expect(DB[:table].at_most?(2)).to be(true)
       end
 
       it "returns false for a dataset with at least three rows" do
-        DB[:table].insert(column: 1)
-        DB[:table].insert(column: 2)
-        DB[:table].insert(column: 3)
+        DB[:table].multi_insert([{column: 1}, {column: 2}, {column: 3}])
 
-        at_most_two = DB[:table].at_most?(2)
-
-        expect(at_most_two).to be(false)
+        expect(DB[:table].at_most?(2)).to be(false)
       end
 
       it "generates correct SQL" do
