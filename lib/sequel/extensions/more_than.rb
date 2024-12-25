@@ -18,6 +18,9 @@ require_relative "../more_than/version"
 module Sequel
   module Extensions
     module MoreThan
+      LITERAL_1 = Sequel::SQL::AliasedExpression.new(1, :one)
+      private_constant :LITERAL_1
+
       # Returns true if more than *number_of_rows* records exist in the dataset, false otherwise
       #
       # Equivalent to a "greater than" (>) comparison
@@ -41,7 +44,7 @@ module Sequel
             .single_value_ds
             .unordered
             .offset(number_of_rows)
-            .get(Sequel::SQL::AliasedExpression.new(1, :one))
+            .get(LITERAL_1)
             .nil?
         end
       end
