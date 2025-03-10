@@ -1,3 +1,9 @@
+#################################################
+
+No longer maintained. See [sequel_count_comparisons](https://github.com/eriklovmo/sequel_count_comparisons).
+
+#################################################
+
 # Sequel::MoreThan
 
 This gem adds four convenience methods to `Sequel::Dataset`:
